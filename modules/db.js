@@ -1,12 +1,15 @@
 const { Pool } = require('pg');
+const cfenv = require('cfenv');
 
-// Notice here
+const env = cfenv.getAppEnv();
+const credentials = env.services["postgresql-db"][0].credentials
+
 const pool = new Pool({
-  host: "postgres-403d5697-a293-488a-a8cf-7d5158d90b24.postgres.database.azure.com",
-  port: "5432",
-  database: "rXXyINYzpXIZ",
-  user: "a1fdca38d606",
-  password: "a9f5672bdbce",
+  host: credentials.hostname,
+  port: credentials.port,
+  database: credentials.dbname,
+  user: credentials.username,
+  password: credentials.password,
   ssl: {
     require: true, // This will help you. But you will see nwe error
     rejectUnauthorized: false // This line will fix new error

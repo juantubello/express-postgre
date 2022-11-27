@@ -1,7 +1,6 @@
 'use strict';
 const pg = require("pg")
 const express = require('express');
-const cfenv = require('cfenv')
 const db = require('./modules/db');
 
 // Constants
@@ -11,9 +10,8 @@ const HOST = '0.0.0.0';
 // App
 const app = express();
 app.get('/', async (req, res) => {
-  const appEnv = cfenv.getAppEnv();
-  const asd = await db.select('SELECT * FROM article');
-  res.send(asd);
+  const dbdata = await db.select('SELECT * FROM article');
+  res.send(`Query realizada con éxito! => ${dbdata}`);
 });
 
 app.listen(PORT, HOST, () => {
